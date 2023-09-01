@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,12 @@ use App\Http\Controllers\PostController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('user/index', [UserController::class, 'index'])->name('user.index');
+Route::get('user/showuser/{user}', [UserController::class, 'show'])->name('user.show');
+Route::get('user/{user}/edituser', [UserController::class, 'edit'])->name('user.edit');
+Route::patch('user/{user}', [UserController::class, 'update'])->name('user.update');
+Route::delete('user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 
 Route::get('post/show/{post}', [PostController::class, 'show'])->name('post.show');
 Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
@@ -30,7 +37,7 @@ Route::get('post', [PostController::class, 'index']);
 
 Route::get('/', function () {
     return view('welcome');
-}) ->middleware('auth');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
