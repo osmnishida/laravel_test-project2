@@ -5,6 +5,15 @@
     </h2>
   </x-slot>
 
+  <form method="post" action="{{ route('user.search') }}">
+    @csrf
+    <label for="searchmailaddress">メールアドレス検索</laravel>
+    <input type="text: name="searchmailaddress" name="searchmailaddress" id="searchmailaddress">
+    <x-primary-button class="mt-4">
+      検索する
+    </x-primary-button>
+  </form>
+
   @if(session('message'))
     <div class="text-red-600 font-bold">
       {{session('message')}}

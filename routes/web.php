@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\SearchMailAddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +19,18 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('user/index', [UserController::class, 'index'])->name('user.index');
-Route::get('user/showuser/{user}', [UserController::class, 'show'])->name('user.show');
+Route::get('user/admin', [UserController::class, 'index'])->middleware('admin');
+Route::get('user/showuser/{user}', [UserController::class, 'show'])->name('user.show')->middleware('admin');
 Route::get('user/{user}/edituser', [UserController::class, 'edit'])->name('user.edit');
 Route::patch('user/{user}', [UserController::class, 'update'])->name('user.update');
 Route::delete('user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+Route::post('user/showsearchuser', [SearchMailAddressController::class, 'search'])->name('user.search')->middleware('admin');
+
+Route::get('user/profile',[UserProfileController::class, 'edit'])->name('userprofile.edit');
+Route::patch('user/editprofile',[UserProfileController::class, 'update'])->name('editprofile.update');
+
+Route::get('sendmail', [SendMailController::class, 'send'])->name('sendmail');
 
 Route::get('post/show/{post}', [PostController::class, 'show'])->name('post.show');
 Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
